@@ -1,4 +1,4 @@
-# lensing odissey kinematics project
+# lensing odyssey kinematics project
 The repo contains the implementation, data and pretrained models for the kinematics project. 
 
 ## How to setup
