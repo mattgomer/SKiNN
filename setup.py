@@ -9,5 +9,7 @@ setup(name='SKiNN',
   description='Stellar Kinematics Neural Network',
   author='Luca Biggio',
   url='https://github.com/lucabig/lensing_odyssey_kinematics',
-  packages=['SKiNN'],
+  packages=find_packages(),
+  include_package_data=True
+      
  )
