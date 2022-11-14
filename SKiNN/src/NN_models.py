@@ -8,6 +8,8 @@ import torch
 from pytorch_lightning import LightningModule
 
 import pdb
+from torch.utils.cpp_extension import load
+from model_imp import *
 
 
 def deconv(in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm=True):
@@ -131,3 +133,78 @@ class Generator(LightningModule):
 
     def count_parameters(self):
         return sum(p.numel() for p in self.parameters() if p.requires_grad)
+
+
+class Generator_imp(LightningModule):
+
+    def __init__(self):
+        '''method used to define our model parameters'''
+        super().__init__()
+        self.fc = nn.Linear(9, 512)
+        self.generator = CIPSskip(style_dim=512)
+        self.lr = 1e-3
+        self.loss_func = torch.nn.MSELoss(reduction='mean')
+        self.save_hyperparameters()
+
+    def forward(self, x):
+        '''method used for inference input -> output'''
+
+        # fully-connected + reshape 
+        x = self.fc(x)
+        #aa = convert_to_coord_format(x.shape[0], 256, 256, integer_values=False).to(self.device)
+        aa = convert_to_coord_format(x.shape[0], 276, 276, integer_values=False).to(self.device)
+        out,_ = self.generator(aa,[x])
+        return out
+
+    def training_step(self, batch, batch_idx):
+        '''needs to return a loss from a single batch'''
+        x, y = batch
+        #y = y[:,147:-148,147:-148]
+        y = y[:,:276,:276]
+        #aa = convert_to_coord_format(1, 256, 256, integer_values=False).to(self.device)
+        out = self(x)
+        loss = self.loss_func(out.squeeze(), y.squeeze())
+
+        # Log training loss
+        self.log('train_loss', loss,on_step=False,on_epoch=True)
+
+        return loss
+
+    def validation_step(self, batch, batch_idx):
+        '''used for logging metrics'''
+        x, y = batch
+        #y = y[:,147:-148,147:-148]
+        y = y[:,:276,:276]
+        #aa = convert_to_coord_format(1, 256, 256, integer_values=False).to(self.device)
+        out = self(x)
+        loss = self.loss_func(out.squeeze(), y.squeeze())
+
+        # Log validation loss (will be automatically averaged over an epoch)
+        self.log('valid_loss', loss,on_step=False,on_epoch=True,sync_dist=True)
+
+    def test_step(self, batch, batch_idx):
+        '''used for logging metrics'''
+        x, y = batch
+        #y = y[:,147:-148,147:-148]
+        y = y[:,:276,:276]
+        #aa = convert_to_coord_format(1, 256, 256, integer_values=False).to(self.device)
+        out = self(x)
+        loss = self.loss_func(out.squeeze(), y.squeeze())
+
+        # Log test loss
+        self.log('test_loss', loss,sync_dist=True)
+    
+    def configure_optimizers(self):
+        '''defines model optimizer'''
+        return Adam(self.parameters(), lr=self.lr)
+
+    def count_parameters(self):
+        return sum(p.numel() for p in self.parameters() if p.requires_grad)
+
+
+
+if __name__ == "__main__":
+    generator = Generator_imp().cuda()
+    sample_z = torch.randn(1, 512)
+    out ,_ = generator([sample_z.cuda()])
+    breakpoint()

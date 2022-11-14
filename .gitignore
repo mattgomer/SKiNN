@@ -132,3 +132,4 @@ cosmo
 parameters_new.npy
 vrms_map_new.npy
 data*
+lensing_odyssey_kinematics/SKiNN/weights/*
