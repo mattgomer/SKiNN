@@ -3,7 +3,10 @@ The repo contains the implementation, data and pretrained models for the kinemat
 
 ## Setup of SKiNN package
 * Clone the repository into your environment: `git clone`
+* Download the correct weights from ____, called 'upsampling_cosmo_gen_norm_1channel_new-epoch=1109-valid_loss=0.00.ckpt'. Put this file in the 'SKiNN/weights/' directory.
+* Activate the envirionment you want the package to be in
 * install dependencies from `requirements.txt`
+* CUDA is required: make sure your version of torch is cuda compatible
 * Run `python setup.py install` to install as SKiNN package
 * package should now be importable as `import SKiNN`
 

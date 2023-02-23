@@ -9,7 +9,7 @@ from pytorch_lightning import LightningModule
 
 import pdb
 from torch.utils.cpp_extension import load
-from model_imp import *
+from SKiNN.src.model_imp import *
 
 
 def deconv(in_channels, out_channels, kernel_size, stride=2, padding=1, batch_norm=True):
