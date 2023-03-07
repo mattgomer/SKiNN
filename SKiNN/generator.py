@@ -27,7 +27,8 @@ class Generator(object):
             self.pred = self.net(self.input_p).cpu().numpy()
         scaled_pred=self.pred[0,:,:].squeeze() * self.scaling_y
         mirrored_pred=self.mirror_output(scaled_pred)
-        return mirrored_pred
+        output=np.maximum(mirrored_pred,np.zeros_like(mirrored_pred))
+        return output
 
     def mirror_output(self, prediction_image):
         """

@@ -107,7 +107,7 @@ class CIPSskip(nn.Module):
             emb = F.grid_sample(
                 self.emb.input.expand(batch_size, -1, -1, -1),
                 coords.permute(0, 2, 3, 1).contiguous(),
-                padding_mode='border', mode='bilinear',
+                padding_mode='border', mode='bilinear', align_corners=False
             )
 
         x = torch.cat([x, emb], 1)
