@@ -120,7 +120,7 @@ venv.bak/
 # mkdocs documentation
 /site
 
-# mypy
+# mypys
 .mypy_cache/
 .dmypy.json
 dmypy.json
@@ -132,4 +132,5 @@ cosmo
 parameters_new.npy
 vrms_map_new.npy
 data*
-lensing_odyssey_kinematics/SKiNN/weights/*
+SKiNN/weights/*.ckpt
+
