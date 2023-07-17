@@ -9,9 +9,7 @@ CUDA is required: make sure your setup is CUDA compatible
 * Go to your local lensing_odyssey_kinematics directory
 * "pip install ." will download weights and install dependencies
 * package should now be importable as `import SKiNN`
-* test the install with "python test_SKiNN.py"
 
 ## How to test the network
+* test the install with "python test_SKiNN.py"
 * The notebook `SKiNN_package_example` imports the package and generates a map
-* The notebook `interface.ipynb` shows how to load and test the package without importing SKiNN
-
