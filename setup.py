@@ -16,6 +16,10 @@ if not os.path.exists(weights_dir):
 if not os.path.exists(weights_file):
     print('Downloading weights...')
     urllib.request.urlretrieve(weights_url, weights_file)
+
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
     
 setup(name='SKiNN',
   version='1.1',
@@ -23,6 +27,7 @@ setup(name='SKiNN',
   author='Luca Biggio',
   url='https://github.com/lucabig/lensing_odyssey_kinematics',
   packages=find_packages()+find_namespace_packages(),
-  include_package_data=True
+  include_package_data=True,
+  install_requires=requirements
       
  )
