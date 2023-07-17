@@ -1,9 +1,11 @@
 asposestorage==1.0.2
-data_utils==0.0.7
 joblib==1.2.0
 numpy==1.23.5
+ninja==1.11.1
 pytorch_lightning==1.9.2
 setuptools==68.0.0
-torch==1.13.1
-pytorch-cuda==11.7
+torch==2.0.1
+torchaudio==2.0.2
+torchvision==0.15.2
+scikit-learn==1.2.1
 wandb==0.13.10

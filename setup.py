@@ -8,7 +8,7 @@ except ImportError:
     from distutils.core import setup
 
 weights_url = "https://dox.uliege.be/index.php/s/mtphEyrQ5h4IRF8/download"
-weights_file = "SKiNN/weights/upsampling_cosmo_gen_norm_1channel_new.ckpt"
+weights_file = "SKiNN/weights/upsampling_cosmo_gen_norm_1channel_new-epoch=1109-valid_loss=0.00.ckpt"
 weights_dir = os.path.dirname(weights_file)
 if not os.path.exists(weights_dir):
     os.makedirs(weights_dir)
