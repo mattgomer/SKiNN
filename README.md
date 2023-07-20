@@ -1,4 +1,4 @@
-# lensing odyssey kinematics project
+# Stellar Kinematics Neural Network
 The repo contains the implementation, data and pretrained models for the kinematics project. Can be imported as a python package named `SKiNN`.
 
 CUDA is required: make sure your setup is CUDA compatible
